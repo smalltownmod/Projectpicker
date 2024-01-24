@@ -33,7 +33,7 @@ namespace Tests.ProjectPicker {
 			Exitcode += ProcInvoker.Run("dotnet", $" sln {Path}/{proj}/{proj}.sln add {Path}/{proj}/{dir}/{name}.csproj");
 			//for targeting .NET 7.0
 			var rep = $"{ Path }/{ proj}/{ dir}/{ name}.csproj";
-			File.WriteAllText(rep, File.ReadAllText(rep).Replace("net8.0", "net7.0"));
+			//File.WriteAllText(rep, File.ReadAllText(rep).Replace("net8.0", "net7.0"));
 			Assert.True(Exitcode == 0);
 		}
 	}
