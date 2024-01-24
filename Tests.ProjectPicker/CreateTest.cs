@@ -23,10 +23,15 @@ namespace Tests.ProjectPicker {
 		public void createAva() {
 			createProject("Avalonia App", proj, proj);
 		}
+		[Fact]
+		public void avaMVVM() {
+			createProject("Avalonia MVVM", proj, proj);
+		}
 
 		public void createProject(string type, string name, string dir) {
 		var Exitcode =	ProcInvoker.Run("dotnet", $" new {type.Split(' ').First().ToLower()}.{type.Split(' ').Last().ToLower()} -n {name} -o {Path}/{proj}/{dir} ");
 			Exitcode += ProcInvoker.Run("dotnet", $" sln {Path}/{proj}/{proj}.sln add {Path}/{proj}/{dir}/{name}.csproj");
+			//for targeting .NET 7.0
 			var rep = $"{ Path }/{ proj}/{ dir}/{ name}.csproj";
 			File.WriteAllText(rep, File.ReadAllText(rep).Replace("net8.0", "net7.0"));
 			Assert.True(Exitcode == 0);
