@@ -32,10 +32,10 @@ public partial class DirectoryWindow : Window {
 		var workdir = Directory.CreateDirectory(ProjPath.Text + "/" + Props.Title);
 		ProcInvoker.Run("dotnet", $"new sln -n {Props.Title} -o {workdir.FullName}");
 		if (Props.Type[0] == 'A') createCLI(Props.Title, Props.Type.Split(' ').First().ToLower() + "." + Props.Type.Split(' ').Last().ToLower(), workdir.FullName + "/" + Props.Title);
-		else createCLI(Props.Title, Props.Type.ToLower(), Props.Title);
+		else createCLI(Props.Title, Props.Type.ToLower(),workdir.FullName + "/" + Props.Title);
 		if (Props.hasTest) {
 			createCLI($"Tests.{Props.Title}", "xunit", $"{workdir.FullName}/Tests");
-			ProcInvoker.Run("dotnet", $"add {workdir.FullName}/{Props.Title}/{Props.Title}.csproj reference {workdir.FullName}/Test/Test.{Props.Title}.csproj");
+			ProcInvoker.Run("dotnet", $"add {workdir.FullName}/{Props.Title}/{Props.Title}.csproj reference {workdir.FullName}/Test/Tests.{Props.Title}.csproj");
 		}
 		Close();
 	}
