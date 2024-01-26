@@ -28,8 +28,14 @@ namespace Tests.ProjectPicker {
 			createProject("Avalonia MVVM", proj, proj);
 		}
 
+		[Fact]
+		public void createWPF() {
+			createProject("WPF", proj, proj);
+		}
+
 		public void createProject(string type, string name, string dir) {
-		var Exitcode =	ProcInvoker.Run("dotnet", $" new {type.Split(' ').First().ToLower()}.{type.Split(' ').Last().ToLower()} -n {name} -o {Path}/{proj}/{dir} ");
+			//var Exitcode =	ProcInvoker.Run("dotnet", $" new {type.Split(' ').First().ToLower()}.{type.Split(' ').Last().ToLower()} -n {name} -o {Path}/{proj}/{dir} ");
+			var Exitcode = ProcInvoker.Run("dotnet", $" new {type.Replace(' ', '.').ToLower()} -n {name} -o {Path}/{proj}/{dir}");
 			Exitcode += ProcInvoker.Run("dotnet", $" sln {Path}/{proj}/{proj}.sln add {Path}/{proj}/{dir}/{name}.csproj");
 			//for targeting .NET 7.0
 			var rep = $"{ Path }/{ proj}/{ dir}/{ name}.csproj";

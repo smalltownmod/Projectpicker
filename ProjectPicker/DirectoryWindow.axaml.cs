@@ -25,17 +25,16 @@ public partial class DirectoryWindow : Window {
 		File.WriteAllText("default.txt", ProjPath.Text);
 	}
 	private void BtnCreate_click(object sender, Avalonia.Interactivity.RoutedEventArgs e) {
-		if (ProjPath.Text == null || ProjPath.Text.Trim() == string.Empty) MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard("error", "select directory!!!");
+		if (ProjPath.Text == null || ProjPath.Text.Trim() == string.Empty) MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard("error", "select directory!!!").ShowAsync();
 		else createProject();
 	}
 	private void createProject() {
 		var workdir = Directory.CreateDirectory(ProjPath.Text + "/" + Props.Title);
 		ProcInvoker.Run("dotnet", $"new sln -n {Props.Title} -o {workdir.FullName}");
-		if (Props.Type[0] == 'A') createCLI(Props.Title, Props.Type.Split(' ').First().ToLower() + "." + Props.Type.Split(' ').Last().ToLower(), workdir.FullName + "/" + Props.Title);
-		else createCLI(Props.Title, Props.Type.ToLower(),workdir.FullName + "/" + Props.Title);
+		createCLI(Props.Title, Props.Type.Replace(' ', '.').ToLower(), workdir.FullName + "/" + Props.Title);
 		if (Props.hasTest) {
 			createCLI($"Tests.{Props.Title}", "xunit", $"{workdir.FullName}/Tests");
-			ProcInvoker.Run("dotnet", $"add {workdir.FullName}/{Props.Title}/{Props.Title}.csproj reference {workdir.FullName}/Test/Tests.{Props.Title}.csproj");
+			ProcInvoker.Run("dotnet", $"add {workdir.FullName}/{Props.Title}/{Props.Title}.csproj reference {workdir.FullName}/Tests/Tests.{Props.Title}.csproj");
 		}
 		Close();
 	}
