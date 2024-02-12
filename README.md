@@ -10,6 +10,10 @@ a small tool for creating C# projects
    - Console
 - You can choose if you want UnitTests for your Project 
 - Puts Project and UnitTests in the same .sln and references them
+- for creating Avalonia Projects Avalonia has to be installed 
+```
+ dotnet new install Avavlonia.Templates
+```
 
 ## Planned 
 
