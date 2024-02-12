@@ -25,6 +25,16 @@
 				<Button Content="Browse..." Margin="5,0,0,0" Click="BtnBrowse_click"/>
 				<Button Content="Default" Click="BtnDefault_click" />
 			</WrapPanel>
+			<WrapPanel Margin="0,10">
+				<CheckBox Name="gitCheck"/>
+				<TextBlock VerticalAlignment="Center" 
+									 Text="gitignore"/>
+			</WrapPanel>
+			<WrapPanel>
+				<CheckBox Name="readmeCheck"/>
+				<TextBlock Text="ReadMe"
+									 VerticalAlignment="Center"/>
+			</WrapPanel>
 			<Button Margin="0, 50" Content="Create" Click="BtnCreate_click"/>
 		</StackPanel>
 	</Panel>

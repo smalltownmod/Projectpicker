@@ -4,7 +4,7 @@ using ProjectPicker.models;
 
 namespace Tests.ProjectPicker {
 	public class CreateTest {
-		string Path = "E://src";
+		string Path = "C://src";
 		string proj = "CreateTest";
 		[Fact]
 		public void Create() {

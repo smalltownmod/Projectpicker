@@ -36,10 +36,15 @@ public partial class DirectoryWindow : Window {
 			createCLI($"Tests.{Props.Title}", "xunit", $"{workdir.FullName}/Tests");
 			ProcInvoker.Run("dotnet", $"add {workdir.FullName}/{Props.Title}/{Props.Title}.csproj reference {workdir.FullName}/Tests/Tests.{Props.Title}.csproj");
 		}
-		Close();
+		scriptCreate(workdir.FullName);
+			Close();
 	}
 	private void createCLI(string name, string type, string folder) {
 		ProcInvoker.Run("dotnet", $" new {type} -n {name} -o {folder}");
 		ProcInvoker.Run("dotnet", $"sln {ProjPath.Text}/{Props.Title}/{Props.Title}.sln add {folder}/{name}.csproj");
+	}
+	private void scriptCreate(string path) {
+		if ((bool)gitCheck.IsChecked) ProcInvoker.Run("dotnet", $" new gitignore -o {path}");
+		if ((bool)readmeCheck.IsChecked) File.WriteAllText($"{path}/readMe.md",$"## Hello {Props.Title}" );
 	}
 }
