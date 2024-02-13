@@ -39,6 +39,11 @@
 										 VerticalAlignment="Bottom"/>
 					<ComboBox Name="CBTarget"/>
 				</WrapPanel>
+				<WrapPanel>
+					<CheckBox Name="ChSF"/>
+					<TextBlock Text="SingleFile"
+										 VerticalAlignment="Center"/>
+				</WrapPanel>
 			<Button Margin="0, 50" Content="Create" Click="BtnCreate_click"/>
 			</WrapPanel>
 		</StackPanel>

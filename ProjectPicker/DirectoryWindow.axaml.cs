@@ -47,6 +47,7 @@ public partial class DirectoryWindow : Window {
 		if ((bool)gitCheck.IsChecked) ProcInvoker.Run("dotnet", $" new gitignore -o {path}");
 		if ((bool)readmeCheck.IsChecked) File.WriteAllText($"{path}/readMe.md",$"## Hello {Props.Title}" );
 		ScriptModel sm = new ScriptModel();
-		File.WriteAllText(path + $"/publish.ps1", sm.PublishScript(Props.Title, "true", CBTarget.SelectedItem.ToString()));
+		string sf = (bool)ChSF.IsChecked ? "true" : "false";
+		File.WriteAllText(path + $"/publish.ps1", sm.PublishScript(Props.Title, sf, CBTarget.SelectedItem.ToString()));
 	}
 }
