@@ -1,14 +1,20 @@
 using Avalonia.Controls;
 using Avalonia.VisualTree;
 using ProjectPicker.models;
+using System.Collections.Generic;
 using System.IO;
 
 namespace ProjectPicker;
 
 public partial class DirectoryWindow : Window {
 	public Properties Props { get; set; }
+	private List<string> targets {  get; set; }
 	public DirectoryWindow() {
 		InitializeComponent();
+		targets = new List<string>() {"win-x64", "win-x86", "win-arm64", "linux-x64", "linux-arm", "linux-arm64", "osx-x64", "osx-arm64",
+		"ios-arm64", "android-arm64"};
+		CBTarget.ItemsSource = targets;
+		CBTarget.SelectedIndex = 0;
 		if (File.Exists("default.txt")) ProjPath.Text = File.ReadAllText("default.txt");
 	}
 	private async void BtnBrowse_click(object sender, Avalonia.Interactivity.RoutedEventArgs e) {
@@ -28,7 +34,7 @@ public partial class DirectoryWindow : Window {
 		createCLI(Props.Title, Props.Type.Replace(' ', '.').ToLower(), workdir.FullName + "/" + Props.Title);
 		if (Props.hasTest) {
 			createCLI($"Tests.{Props.Title}", "xunit", $"{workdir.FullName}/Tests");
-			ProcInvoker.Run("dotnet", $"add {workdir.FullName}/{Props.Title}/{Props.Title}.csproj reference {workdir.FullName}/Tests/Tests.{Props.Title}.csproj");
+			ProcInvoker.Run("dotnet", $"add {workdir.FullName}/Tests/Tests.{Props.Title}.csproj reference {workdir.FullName}/{Props.Title}/{Props.Title}.csproj");
 		}
 		scriptCreate(workdir.FullName);
 			Close();
@@ -40,5 +46,7 @@ public partial class DirectoryWindow : Window {
 	private void scriptCreate(string path) {
 		if ((bool)gitCheck.IsChecked) ProcInvoker.Run("dotnet", $" new gitignore -o {path}");
 		if ((bool)readmeCheck.IsChecked) File.WriteAllText($"{path}/readMe.md",$"## Hello {Props.Title}" );
+		ScriptModel sm = new ScriptModel();
+		File.WriteAllText(path + $"/publish.ps1", sm.PublishScript(Props.Title, "true", CBTarget.SelectedItem.ToString()));
 	}
 }

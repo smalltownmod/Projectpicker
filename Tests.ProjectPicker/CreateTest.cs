@@ -34,7 +34,7 @@ namespace Tests.ProjectPicker {
 		}
 		[Fact]
 		public void scribe() {
-			File.WriteAllText($"{Path}/{proj}/publish.ps1", PublishSkript("true", "win-x64"));
+			File.WriteAllText($"{Path}/{proj}/publish.ps1", PublishSkript("true", "linux-x64"));
 		}
 
 		public void createProject(string type, string name, string dir) {
@@ -42,7 +42,7 @@ namespace Tests.ProjectPicker {
 			var Exitcode = ProcInvoker.Run("dotnet", $" new {type.Replace(' ', '.').ToLower()} -n {name} -o {Path}/{proj}/{dir}");
 			Exitcode += ProcInvoker.Run("dotnet", $" sln {Path}/{proj}/{proj}.sln add {Path}/{proj}/{dir}/{name}.csproj");
 			//for targeting .NET 7.0
-			var rep = $"{ Path }/{ proj}/{ dir}/{ name}.csproj";
+			//var rep = $"{ Path }/{ proj}/{ dir}/{ name}.csproj";
 			//File.WriteAllText(rep, File.ReadAllText(rep).Replace("net8.0", "net7.0"));
 			Assert.True(Exitcode == 0);
 		}
