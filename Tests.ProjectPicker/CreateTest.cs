@@ -32,6 +32,10 @@ namespace Tests.ProjectPicker {
 		public void createWPF() {
 			createProject("WPF", proj, proj);
 		}
+		[Fact]
+		public void scribe() {
+			File.WriteAllText($"{Path}/{proj}/publish.ps1", PublishSkript("true", "win-x64"));
+		}
 
 		public void createProject(string type, string name, string dir) {
 			//var Exitcode =	ProcInvoker.Run("dotnet", $" new {type.Split(' ').First().ToLower()}.{type.Split(' ').Last().ToLower()} -n {name} -o {Path}/{proj}/{dir} ");
@@ -41,6 +45,14 @@ namespace Tests.ProjectPicker {
 			var rep = $"{ Path }/{ proj}/{ dir}/{ name}.csproj";
 			//File.WriteAllText(rep, File.ReadAllText(rep).Replace("net8.0", "net7.0"));
 			Assert.True(Exitcode == 0);
+		}
+
+		public string PublishSkript(string sf, string target) {
+			string pbSkript = $"$singlefile=\"-p:PublishSingleFile={sf}\"\n" +
+				$"$cmd =\"dotnet publish -o ./build/{proj} --sc -r {target} $singlefile -c Release {proj}/{proj}.csproj\"\n" +
+				$"Invoke-Expression $cmd;\n";
+
+			return pbSkript;
 		}
 	}
 }

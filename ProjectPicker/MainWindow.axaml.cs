@@ -1,5 +1,4 @@
 using Avalonia.Controls;
-using System;
 using System.Collections.Generic;
 using MsBox.Avalonia;
 using ProjectPicker.models;
