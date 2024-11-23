@@ -1,0 +1,51 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+				Width="250" Height="250"
+        x:Class="ProjectPicker.DirectoryWindow"
+        Title="DirectoryWindow"
+					WindowStartupLocation="CenterScreen"
+				TransparencyLevelHint="AcrylicBlur"
+				Background="Transparent">
+	<Panel>
+		<ExperimentalAcrylicBorder IsHitTestVisible="False">
+			<ExperimentalAcrylicBorder.Material>
+				<ExperimentalAcrylicMaterial
+					BackgroundSource="Digger"
+					TintColor="Black"
+					TintOpacity="1"
+					MaterialOpacity="0.5"/>
+			</ExperimentalAcrylicBorder.Material>
+		</ExperimentalAcrylicBorder>
+		<StackPanel Margin="20,20,20,20">
+			<TextBox Width="200" Watermark="path/to/your/project" Name="ProjPath" />
+			<WrapPanel>
+				<Button Content="Browse..." Margin="5,0,0,0" Click="BtnBrowse_click"/>
+				<Button Content="Default" Click="BtnDefault_click" />
+			</WrapPanel>
+			<WrapPanel Margin="0,10,0,0">
+				<CheckBox Name="gitCheck"/>
+				<TextBlock VerticalAlignment="Center" 
+									 Text="gitignore"/>
+			<WrapPanel>
+				<CheckBox Margin="10,0,0,0" Name="readmeCheck"/>
+				<TextBlock Text="ReadMe"
+									 VerticalAlignment="Center"/>
+			</WrapPanel>
+				<WrapPanel>
+					<TextBlock Text="BuildScript:" Margin="0,0,10,10"
+										 VerticalAlignment="Bottom"/>
+					<ComboBox Name="CBTarget"/>
+				</WrapPanel>
+				<WrapPanel>
+					<CheckBox Name="ChSF"/>
+					<TextBlock Text="SingleFile"
+										 VerticalAlignment="Center"/>
+				</WrapPanel>
+			<Button Margin="0, 50" Content="Create" Click="BtnCreate_click"/>
+			</WrapPanel>
+		</StackPanel>
+	</Panel>
+</Window>

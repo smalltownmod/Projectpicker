@@ -1,0 +1,33 @@
+Index: ../README.md
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Projectpicker
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/../README.md b/../README.md
+--- a/../README.md	(revision 17fb469661649779ed4344a1144b94d29708f1bc)
++++ b/../README.md	(date 1710849798879)
+@@ -1,1 +1,20 @@
+-# Projectpicker
+\ No newline at end of file
++# Projectpicker
++a small tool for creating C# projects
++## Current Status
++
++- you can select one of the following C# Templates: 
++   - Avalonia App
++   - Avalonia MVVM
++   - WPF 
++   - Winforms
++   - Console
++-  You can add UnitTests to your Project 
++- Puts Project and UnitTests in the same .sln and references them
++- for creating Avalonia Projects Avalonia has to be installed 
++```
++ dotnet new install Avavlonia.Templates
++```
++
++- creates gitignore 
++- creates Readme.md
++- creates customizable publish.ps1 script
